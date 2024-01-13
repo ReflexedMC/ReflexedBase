@@ -31,7 +31,7 @@ public class PermissionUser {
         }
 
         if(value) {
-            player.addAttachment(manager.plugin(), permission, true);
+            player.addAttachment(manager.plugin()).setPermission(permission, true);
             return;
         }
 
