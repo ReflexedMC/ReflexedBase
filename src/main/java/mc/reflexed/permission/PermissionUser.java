@@ -12,6 +12,8 @@ public class PermissionUser {
     private final Player player;
 
     public void setPermission(String permission, boolean value) {
+        if(player.isOp()) return;
+
         if (permission.equalsIgnoreCase("*")) {
             manager.getAllPermissions().forEach(p -> setPermission(p.getName(), value));
             return;
