@@ -50,7 +50,7 @@ public class CommandManager {
     }
 
     public void onDisable() {
-        commands.forEach(this::unregister);
+        new ArrayList<>(this.commands).forEach(this::unregister);
     }
 
     public SimpleCommandMap getCommandMap() {
