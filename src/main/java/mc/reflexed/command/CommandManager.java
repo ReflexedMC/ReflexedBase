@@ -49,6 +49,10 @@ public class CommandManager {
         reloadAllCommands();
     }
 
+    public void onDisable() {
+        commands.forEach(this::unregister);
+    }
+
     public SimpleCommandMap getCommandMap() {
         try {
             Field field = plugin.getServer().getClass().getDeclaredField("commandMap");
