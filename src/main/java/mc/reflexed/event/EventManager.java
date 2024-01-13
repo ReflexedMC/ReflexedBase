@@ -66,7 +66,7 @@ public class EventManager {
 
             EventSender matchedSender = getMatchingSender(clazz, method);
 
-            if(matchedSender != null && !matchedSender.isRegistered()) {
+            if(matchedSender != null && !matchedSender.isRegistered() && matchedSender.getPlayers().size() == 0) {
                 matchedSender.register(true);
                 matchedSender.override(method);
                 matchedSender.addPlayers(players);
