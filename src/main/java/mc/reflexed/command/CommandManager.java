@@ -1,7 +1,6 @@
 package mc.reflexed.command;
 
 import lombok.Getter;
-import mc.reflexed.permission.PermissionManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
@@ -19,11 +18,9 @@ public class CommandManager {
     private final List<FlexedCommand> commands = new ArrayList<>();
 
     private final Plugin plugin;
-    private final PermissionManager permissionManager;
 
-    public CommandManager(Plugin plugin, PermissionManager permissionManager) {
+    public CommandManager(Plugin plugin) {
         this.plugin = plugin;
-        this.permissionManager = permissionManager;
     }
 
     public void register(ICommandExecutor... commands) {
@@ -35,7 +32,6 @@ public class CommandManager {
 
         FlexedCommand cmd = new FlexedCommand(command);
         commandMap.register(cmd.getInfo().fallback(), cmd);
-        permissionManager.register(cmd.getInfo().permission());
         commands.add(cmd);
 
         reloadAllCommands();
@@ -48,7 +44,6 @@ public class CommandManager {
         knownCommands.remove(command.getInfo().name());
         knownCommands.remove(String.format("%s:%s", command.getInfo().fallback(), command.getInfo().name()));
 
-        permissionManager.unregister(command.getInfo().permission());
         command.unregister(commandMap);
         commands.remove(command);
 
