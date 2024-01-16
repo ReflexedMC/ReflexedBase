@@ -36,14 +36,18 @@ public class EventSender {
         try {
             if (!registered) return;
 
-            if (players.size() == 0) {
+
+            if (players.size() == 0 && eventClass.isAssignableFrom(args[0].getClass())) {
                 method.invoke(obj, args);
                 return;
             }
 
             if (!players.contains(args[0])) return;
 
-            if (method.getParameterCount() == 2) {
+            if (method.getParameterCount() == 2
+                    && eventClass.isAssignableFrom(args[1].getClass())
+                    && args[0] instanceof Player
+            ) {
                 Object player = args[0];
                 Object event = args[1];
 
