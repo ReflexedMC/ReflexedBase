@@ -83,6 +83,11 @@ public class EventManager {
         }
     }
 
+    public void onDisable() {
+        senders.forEach(sender -> sender.register(false));
+        senders.clear();
+    }
+
     public void unregister(Object obj) {
         senders.stream().filter(sender -> sender.getObj().equals(obj)).forEach(sender -> sender.register(false));
     }
