@@ -36,7 +36,6 @@ public class EventSender {
         try {
             if (!registered) return;
 
-
             if (players.size() == 0 && eventClass.isAssignableFrom(args[0].getClass())) {
                 method.invoke(obj, args);
                 return;
@@ -44,10 +43,7 @@ public class EventSender {
 
             if (!players.contains(args[0])) return;
 
-            if (method.getParameterCount() == 2
-                    && eventClass.isAssignableFrom(args[1].getClass())
-                    && args[0] instanceof Player
-            ) {
+            if (method.getParameterCount() >= 1 && eventClass.isAssignableFrom(args[1].getClass()) && args[0] instanceof Player) {
                 Object player = args[0];
                 Object event = args[1];
 
@@ -58,16 +54,6 @@ public class EventSender {
             method.invoke(obj, args);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void override(Method method) {
-        try {
-            Field field = this.getClass().getField("method");
-            field.setAccessible(true);
-            field.set(this, method);
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 

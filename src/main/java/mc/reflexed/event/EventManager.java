@@ -43,8 +43,8 @@ public class EventManager {
             EventSender matchedSender = getMatchingSender(clazz, method);
 
             if(matchedSender != null && !matchedSender.isRegistered()) {
-                matchedSender.register(true);
-                matchedSender.override(method);
+                senders.remove(matchedSender);
+                senders.add(new EventSender(clazz, method, obj));
                 continue;
             }
 
@@ -67,9 +67,8 @@ public class EventManager {
             EventSender matchedSender = getMatchingSender(clazz, method);
 
             if(matchedSender != null && !matchedSender.isRegistered() && matchedSender.getPlayers().size() == 0) {
-                matchedSender.register(true);
-                matchedSender.override(method);
-                matchedSender.addPlayers(players);
+                senders.remove(matchedSender);
+                senders.add(new EventSender(clazz, method, obj, players));
                 continue;
             }
 
