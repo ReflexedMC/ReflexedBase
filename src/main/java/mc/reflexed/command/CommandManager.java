@@ -44,6 +44,11 @@ public class CommandManager {
         knownCommands.remove(command.getInfo().name());
         knownCommands.remove(String.format("%s:%s", command.getInfo().fallback(), command.getInfo().name()));
 
+        for(String alias : command.getInfo().aliases()) {
+            knownCommands.remove(alias);
+            knownCommands.remove(String.format("%s:%s", command.getInfo().fallback(), alias));
+        }
+
         command.unregister(commandMap);
         commands.remove(command);
 
